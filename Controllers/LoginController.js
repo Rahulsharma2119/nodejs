@@ -7,6 +7,7 @@ export const LoginCheck = async (req, res) => {
       UserEmail: req.body.UserEmail,
       UserPassword: req.body.UserPassword,
     });
+    console.log(req.body);
     if (AdminDetails) {
       const token = jwt.sign({UserId:AdminDetails._id,Role:AdminDetails.role},"some text",{
         expiresIn : '10m'

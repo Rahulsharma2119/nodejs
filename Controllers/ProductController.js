@@ -7,6 +7,7 @@ import { log } from "console";
 export const ProductCreate = async (req, res) => {
   try {
     const verify = Jwt.verify(req.header('Authorization'), "some text");
+    console.log(req.body);
     let images = req?.files?.map((item) => {
         return item.filename;
     });
@@ -27,9 +28,9 @@ export const ProductCreate = async (req, res) => {
     });
     if (ProductDetails){
       res.status(200).send({ message: "Product Created" });
-      images.forEach(element => {
+      images.forEach(async element => {
         try {
-          fs.unlinkSync(path+element);
+          await fs.unlinkSync(path+element);
         } catch (error) {
           console.log("cannot deleted files");
         }
